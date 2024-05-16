@@ -15,8 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path
+
+def hello(request):
+    return HttpResponse('<h1>Hello Engineers 🤞</h1>')
+
+def multiply(request, num):
+    html = f'<h1>Table del {num}</h1>'
+    for i in range(1, 11):
+        html += f'<p>{ num } * { i } = { i * num }</p>'
+    return HttpResponse(html)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('hello/', hello, name='hello'),
+    path('table/<int:num>/', multiply, name='multiply')
 ]
