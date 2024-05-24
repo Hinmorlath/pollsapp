@@ -1,3 +1,9 @@
-<h1>Welcome Home</h1>
+{% extends "base.html" %}
 
-<a href="{% url 'poll:home' %}">Ir a Encuestas</a>
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome Home</h1>
+
+    <a href="{% url 'poll:home' %}">Ir a Encuestas</a>
+{% endblock %}
