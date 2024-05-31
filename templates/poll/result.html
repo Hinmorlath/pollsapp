@@ -12,6 +12,53 @@
       <li>{{ c.choice_text }} - {{ c.votes }} voto{{ c.votes | pluralize }}</li>
     {% endfor %}
   </ul>
+
+  <div class="canva" style="width: 500px; margin:0 auto;">
+    <canvas id="myPieChart" width="400px" height="400px"></canvas>
+
+  </div>
+  <!-- Canvas para la gráfica de pastel -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('myPieChart').getContext('2d');
+    const choiceText = '{{ choice_text|escapejs }}';  // Convertir a JSON
+    const votes = '{{ votes|escapejs }}';  // Convertir a JSON
+
+    const chartData = {
+        labels: JSON.parse(choiceText),
+        datasets: [{
+            label: 'Votos por Opción',
+            data: JSON.parse(votes),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Bar Chart of Votes'
+                }
+            }
+        }
+    });
+</script>
   <hr>
   <a href="{% url 'poll:home' %}">Encuestas</a>
 {% endblock %}

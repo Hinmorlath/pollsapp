@@ -10,7 +10,10 @@
       {% for q in  questions %}
         <li>
           <a href="{% url 'poll:vote' q.id %}">{{ q }}</a>
-      </li>
+        </li>
+        <li>
+          <a href="{% url 'poll:result' q.id %}">Resultados</a>
+        </li>
       {% endfor %}
   </ul>
 {% endblock %}
